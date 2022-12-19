@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  StudioLCCName:
+    Description: Studio Lifecycle Config Name
+    Type: String
+    Default: disable-download-lcc
+  SMStudioDomainId:
+    Description: SageMaker Studio Domain Id
+    Type: String
+    Default: d-nxcjabqiw3eh
+
+Resources:
+  LCCLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda_lcc/
+      FunctionName: cfn-create-attach-lcc-function
+      Handler: create_attach_studio_lcc.handler
+      Runtime: python3.9
+      Role: !GetAtt LCCLambdaFunctionRole.Arn
+      Timeout: 30
+
+  LCCLambdaFunctionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: LambdaTrustRelationship
+            Effect: Allow
+            Principal:
+              Service:
+                - 'lambda.amazonaws.com'
+            Action:
+              - 'sts:AssumeRole'
+      RoleName: cfn-create-attach-lcc-function-role
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: SageMakerAccessInlinePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Sid: DataScientistAdditionalPolicies
+                Effect: Allow
+                Action:
+                  - 'sagemaker:UpdateDomain'
+                  - 'sagemaker:CreateStudioLifecycleConfig'
+                  - 'sagemaker:DeleteStudioLifecycleConfig'
+                  - 'sagemaker:DescribeStudioLifecycleConfig'
+                Resource: '*'
+
+  InvokeLCCLambdaFunction:
+    Type: Custom::Resource
+    Properties:
+      ServiceToken: !GetAtt LCCLambdaFunction.Arn
+      LCCName: !Ref StudioLCCName
+      DomainId: !Ref SMStudioDomainId
+
+Outputs:
+  StudioLCCArn:
+    Value:
+      !GetAtt InvokeLCCLambdaFunction.lcc_arn
