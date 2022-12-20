@@ -16,6 +16,10 @@ The Lambda function code can be found in the `lambda_lcc` folder - `create_attac
 
 This repository uses AWS Serverless Application Model (SAM) to deploy the resources. See [this page](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) for more information about SAM. You can use CloudFormation to deploy it as well. SAM is used because it provides a convenient way to package the Lambda function into the template.
 
+### Architecture
+
+![Architecture Diagram](OverallArch.png)
+
 ### Template Parameters
 
 1. StudioLCCName: name of the Lifecycle Configuration that will be created
