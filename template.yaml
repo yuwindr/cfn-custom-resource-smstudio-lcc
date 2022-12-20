@@ -6,7 +6,7 @@ Parameters:
   StudioLCCName:
     Description: Studio Lifecycle Config Name
     Type: String
-    Default: disable-download-lcc
+    Default: demo-disable-download-lcc
   SMStudioDomainId:
     Description: SageMaker Studio Domain Id
     Type: String
