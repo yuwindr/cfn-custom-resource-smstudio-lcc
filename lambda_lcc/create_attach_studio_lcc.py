@@ -117,9 +117,7 @@ def detach_delete_studio_lcc(sm, lcc_name, domain_id, response_data):
             DomainId=domain_id,
             DefaultUserSettings={
                 'JupyterServerAppSettings': {
-                    'DefaultResourceSpec': {
-                        'LifecycleConfigArn': lcc_arn
-                    },
+                    'DefaultResourceSpec': {},
                     'LifecycleConfigArns': []
                 },
             }
