@@ -94,10 +94,9 @@ def create_attach_studio_lcc(sm, lcc_name, lcc_content, domain_id, response_data
         response = sm.update_domain(
             DomainId=domain_id,
             DefaultUserSettings={
-                'KernelGatewayAppSettings': {
+                'JupyterServerAppSettings': {
                     'DefaultResourceSpec': {
-                        'LifecycleConfigArn': lcc_arn,
-                        'InstanceType': 'system'
+                        'LifecycleConfigArn': lcc_arn
                     },
                     'LifecycleConfigArns': [lcc_arn]
                 },
