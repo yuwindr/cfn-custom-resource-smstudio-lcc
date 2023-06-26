@@ -17,12 +17,12 @@ echo '  "disabledExtensions": {' >> /opt/conda/envs/studio/etc/jupyter/labconfig
 echo '    "@jupyterlab/filebrowser-extension:share-file": true,' >> /opt/conda/envs/studio/etc/jupyter/labconfig/page_config.json
 echo '    "@jupyterlab/scheduler:IAdvancedOptions": true,' >> /opt/conda/envs/studio/etc/jupyter/labconfig/page_config.json
 echo '    "@jupyterlab/docmanager-extension:download": true,' >> /opt/conda/envs/studio/etc/jupyter/labconfig/page_config.json
-echo '    "@jupyterlab/filebrowser-extension:download": true,' >> /opt/conda/envs/studio/etc/jupyter/labconfig/page_config.json
-echo '    "@jupyterlab/filebrowser-extension:file-upload-button": true' >> /opt/conda/envs/studio/etc/jupyter/labconfig/page_config.json
+echo '    "@jupyterlab/filebrowser-extension:download": true' >> /opt/conda/envs/studio/etc/jupyter/labconfig/page_config.json
 echo '  }' >> /opt/conda/envs/studio/etc/jupyter/labconfig/page_config.json
 echo '}' >> /opt/conda/envs/studio/etc/jupyter/labconfig/page_config.json
 
 # disable upload button
+mkdir -p /home/sagemaker-user/.jupyter/lab/user-settings/\@jupyterlab/filebrowser-extension
 echo '{' > /home/sagemaker-user/.jupyter/lab/user-settings/\@jupyterlab/filebrowser-extension/widget.jupyterlab-settings
 echo '  "toolbar": [' >> /home/sagemaker-user/.jupyter/lab/user-settings/\@jupyterlab/filebrowser-extension/widget.jupyterlab-settings
 echo '    {' >> /home/sagemaker-user/.jupyter/lab/user-settings/\@jupyterlab/filebrowser-extension/widget.jupyterlab-settings
